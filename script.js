@@ -1,4 +1,6 @@
 const poke_container = document.getElementById('poke_container');
+const card_container = document.getElementById('card_container');
+
 const pokemons_number = 150;
 const colors = {
     fire: '#FDDFDF',
@@ -35,50 +37,49 @@ const getPokemon = async id => {
 };
 
 function createPokemonCard(pokemon) {
+    console.log(pokemon);
     const pokemonEl = document.createElement('div');
     pokemonEl.classList.add('pokemon');
 
     const poke_types = pokemon.types.map(type => type.type.name);
     const type = main_types.find(type => poke_types.indexOf(type) > -1);
+    
     const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
     //const description = pokemonDescription.flavor_text_entries[flavor_text];
-    const weight = pokemon.weight / 10;
-    const height = pokemon.height / 10;
     const color = colors[type];
-
     pokemonEl.style.backgroundColor = color;
     const pokeInnerHTML = `
-        <div class="img-container">
-            <img src="https://pokeres.bastionbot.org/images/pokemon/${
+     <div class="img-container">
+         <img src="https://pokeres.bastionbot.org/images/pokemon/${
 							pokemon.id
 						}.png" alt="${name}" />
-        </div>
-        <div class="info">
-            <span class="number">#${pokemon.id
-                .toString()
-                .padStart(3, '0')}</span><br>
-            <button type="button" class="btn btn-outline-dark name" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                ${name}</button>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body ability">
-                            <h3 class="weight">Weight: ${weight}KG</h3>
-                            <h3 class="height">Height: ${height}m</h3>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+     </div>
+     <div class="info">
+         <span class="number">#${pokemon.id
+             .toString()
+             .padStart(3, '0')}</span><br>
+         <a href = "https://www.guj.com.br/t/encaminhar-para-outra-pagina-atraves-de-um-botao-html/191966/3"><button type="button" class="btn btn-outline-dark name">${name}</button></a><br>
+         <small class="type">Type: <span>${type}</span></small>
+     </div>
     `;
+
+const cardInfoInnerHTML = `
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">An item</li>
+    <li class="list-group-item">A second item</li>
+    <li class="list-group-item">A third item</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>`;
 
     pokemonEl.innerHTML = pokeInnerHTML;
 
