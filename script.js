@@ -37,53 +37,44 @@ const getPokemon = async id => {
 };
 
 function createPokemonCard(pokemon) {
-    console.log(pokemon);
     const pokemonEl = document.createElement('div');
     pokemonEl.classList.add('pokemon');
 
     const poke_types = pokemon.types.map(type => type.type.name);
     const type = main_types.find(type => poke_types.indexOf(type) > -1);
-    
     const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
-    //const description = pokemonDescription.flavor_text_entries[flavor_text];
     const color = colors[type];
     pokemonEl.style.backgroundColor = color;
+
     const pokeInnerHTML = `
-     <div class="img-container">
-         <img src="https://pokeres.bastionbot.org/images/pokemon/${
-							pokemon.id
-						}.png" alt="${name}" />
-     </div>
-     <div class="info">
-         <span class="number">#${pokemon.id
-             .toString()
-             .padStart(3, '0')}</span><br>
-         <a href = "https://www.guj.com.br/t/encaminhar-para-outra-pagina-atraves-de-um-botao-html/191966/3"><button type="button" class="btn btn-outline-dark name">${name}</button></a><br>
-         <small class="type">Type: <span>${type}</span></small>
-     </div>
+<div class="d-flex justify-content-center">
+    <div class="" style="width: 9rem;">
+        <div class="img-container">
+            <img src="https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png" alt="${name}" />
+        </div>
+    </div>
+    <div class="">
+        <h5 class="">${name}</h5>
+        <div class="info">
+            <span class="number">#${pokemon.id
+                .toString()
+                .padStart(3, '0')}</span><br>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div> <br>
+        <div class "">
+            <ul class="list-group  list-group-flush">
+                <li class="list-group-item type">Type: <span>${type[0].toUpperCase()+type.slice(1)}</span></li>
+                <li class="list-group-item">Weight: ${pokemon.weight/10}KG</li>
+                <li class="list-group-item">Height: ${pokemon.height/10}m</li>
+            </ul>
+        </div>
+    </div>
+</div>
     `;
-
-const cardInfoInnerHTML = `
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
-  </ul>
-  <div class="card-body">
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
-  </div>
-</div>`;
-
     pokemonEl.innerHTML = pokeInnerHTML;
 
     poke_container.appendChild(pokemonEl);
 }
 
 fetchPokemons();
+
