@@ -1,7 +1,7 @@
 const poke_container = document.getElementById('poke_container');
 const card_container = document.getElementById('card_container');
 
-const pokemons_number = 150;
+const pokemons_number =  891;
 const colors = {
     fire: '#FDDFDF',
     grass: '#DEFDE0',
@@ -28,15 +28,15 @@ const fetchPokemons = async () => {
 
 const getPokemon = async id => {
     const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-    //const urlDescription = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
+    const urlDescription = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
     const res = await fetch(url);
-    //const resDescription = await fetch(urlDescription);
+    const resDescription = await fetch(urlDescription);
     const pokemon = await res.json();
-    //const pokemonDescription = await resDescription.json();
-    createPokemonCard(pokemon);
+    const pokemonDescription = await resDescription.json();
+    createPokemonCard(pokemon, pokemonDescription);
 };
 
-function createPokemonCard(pokemon) {
+function createPokemonCard(pokemon, pokemonDescription) {
     const pokemonEl = document.createElement('div');
     pokemonEl.classList.add('pokemon');
 
@@ -44,28 +44,32 @@ function createPokemonCard(pokemon) {
     const type = main_types.find(type => poke_types.indexOf(type) > -1);
     const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
     const color = colors[type];
+    const text = pokemonDescription.flavor_text_entries[0].flavor_text;
+    const generation = pokemonDescription.generation.name;
     pokemonEl.style.backgroundColor = color;
 
     const pokeInnerHTML = `
-<div class="d-flex justify-content-center">
+
+    <div class="">
+<div class=" d-flex justify-content-center">
     <div class="" style="width: 9rem;">
         <div class="img-container">
             <img src="https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png" alt="${name}" />
         </div>
     </div>
-    <div class="">
-        <h5 class="">${name}</h5>
         <div class="info">
+            <span class="fs-3 fw-bold">${name}</span> &nbsp
             <span class="number">#${pokemon.id
                 .toString()
                 .padStart(3, '0')}</span><br>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div> <br>
+            <p class="card-text text">${text}</p>
+        </div> <br> &nbsp &nbsp
         <div class "">
-            <ul class="list-group  list-group-flush">
+            <ul class="list-group shadow-lg list-group-flush">
                 <li class="list-group-item type">Type: <span>${type[0].toUpperCase()+type.slice(1)}</span></li>
                 <li class="list-group-item">Weight: ${pokemon.weight/10}KG</li>
                 <li class="list-group-item">Height: ${pokemon.height/10}m</li>
+                <li class="list-group-item generation">${generation.toUpperCase()}</li>
             </ul>
         </div>
     </div>
@@ -77,4 +81,3 @@ function createPokemonCard(pokemon) {
 }
 
 fetchPokemons();
-
