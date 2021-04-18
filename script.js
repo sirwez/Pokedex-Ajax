@@ -1,7 +1,6 @@
 const poke_container = document.getElementById('poke_container');
-const card_container = document.getElementById('card_container');
 
-const pokemons_number =  891;
+const pokemons_number =  891; // Só vai até 196
 const colors = {
     fire: '#FDDFDF',
     grass: '#DEFDE0',
