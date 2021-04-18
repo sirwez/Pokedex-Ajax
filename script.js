@@ -45,35 +45,48 @@ function createPokemonCard(pokemon, pokemonDescription) {
     const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
     const color = colors[type];
     const text = pokemonDescription.flavor_text_entries[0].flavor_text;
-    const generation = pokemonDescription.generation.name;
+    const gen = pokemonDescription.generation.name;
+    var str = gen;
+    var textoReplace = "generation-";
+    var generation = str.substring(str.indexOf(textoReplace) + textoReplace.length);
     pokemonEl.style.backgroundColor = color;
-
-    const pokeInnerHTML = `
-
+    const pokeInnerHTML = `   
     <div class="">
-<div class=" d-flex justify-content-center">
-    <div class="" style="width: 9rem;">
-        <div class="img-container">
-            <img src="https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png" alt="${name}" />
-        </div>
-    </div>
-        <div class="info">
-            <span class="fs-3 fw-bold">${name}</span> &nbsp
-            <span class="number">#${pokemon.id
-                .toString()
-                .padStart(3, '0')}</span><br>
-            <p class="card-text text">${text}</p>
-        </div> <br> &nbsp &nbsp
-        <div class "">
-            <ul class="list-group shadow-lg list-group-flush">
-                <li class="list-group-item type">Type: <span>${type[0].toUpperCase()+type.slice(1)}</span></li>
-                <li class="list-group-item">Weight: ${pokemon.weight/10}KG</li>
-                <li class="list-group-item">Height: ${pokemon.height/10}m</li>
-                <li class="list-group-item generation">${generation.toUpperCase()}</li>
-            </ul>
-        </div>
-    </div>
-</div>
+       <div class=" d-flex justify-content-center">
+           <div class="" style="width: 9rem;">
+               <div class="img-container">
+                   <img src="https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png" alt="${name}" />
+               </div>
+           </div>
+           <div class="info">
+               <span class="fs-3 fw-bold">${name}</span> &nbsp
+               <span class="number">#${pokemon.id
+                   .toString()
+                   .padStart(3, '0')}</span><br>
+               <p class="card-text text">${text}</p>
+           </div> <br> &nbsp &nbsp
+           <div class="">
+               <ul class="list-group">
+                   <li class="list-group-item d-flex justify-content-between align-items-center type">
+                       Type
+                       <span class="badge bg-primary rounded-pill">${type[0].toUpperCase()+type.slice(1)}</span>
+                   </li>
+                   <li class="list-group-item d-flex justify-content-between align-items-center">
+                       Weight:
+                       <span class="badge bg-primary rounded-pill">${pokemon.weight/10}</span>
+                   </li>
+                   <li class="list-group-item d-flex justify-content-between align-items-center">
+                       Height:
+                       <span class="badge bg-primary rounded-pill">${pokemon.height/10}</span>
+                   </li>
+                   <li class="list-group-item d-flex justify-content-between align-items-center">
+                       GENERATION&nbsp&nbsp&nbsp&nbsp&nbsp
+                       <span class="badge bg-primary rounded-pill generation">${generation.toUpperCase()}</span>
+                   </li>
+               </ul>
+           </div>
+       </div>
+   </div>
     `;
     pokemonEl.innerHTML = pokeInnerHTML;
 
